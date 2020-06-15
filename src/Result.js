@@ -65,13 +65,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function GenerateInfo(props) {
   const classes = useStyles();
+  const [result, setResult] = React.useState(props.result);
 
-  //   backend retrieved data stored here
-  const suggestedCourses = [
-    "Engineering",
-    "Early Childhood Education",
-    "Dentistry",
-  ];
+  // function sayHello() {
+  //   console.log("reason");
+  //   return <Reason />;
+  // }
 
   return (
     <React.Fragment>
@@ -93,30 +92,48 @@ export default function GenerateInfo(props) {
             <Typography variant="h6" gutterBottom>
               Recommended Courses
             </Typography>
-            <List
-              component="nav"
-              className={classes.root}
-              aria-label="mailbox folders"
-            >
-              {suggestedCourses.map((value, index) => {
-                return (
-                  <ListItem key={index}>
-                    {" "}
-                    <ListItemIcon>
-                      <WorkOutlineIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={value} />
-                  </ListItem>
-                );
-              })}
-            </List>
+            &nbsp;
+            {result == undefined ? (
+              <div>
+                <Typography variant="subtitle1">
+                  Sorry, you do not fulfil the requirement.If your grade above
+                  3.0, perhaps your input is wrong. Please retest it.
+                </Typography>
+                &nbsp;
+                <Typography variant="subtitle1">
+                  If your grade is below 3.0, we suggest you to enroll
+                  Polytechnic, Diploma or Foundation.
+                </Typography>
+              </div>
+            ) : (
+              <List
+                component="nav"
+                className={classes.root}
+                aria-label="mailbox folders"
+              >
+                {result.map((value, index) => {
+                  return (
+                    <ListItem key={index}>
+                      {" "}
+                      <ListItemIcon>
+                        <WorkOutlineIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={value} />
+                    </ListItem>
+                  );
+                })}
+              </List>
+            )}
             <div className={classes.buttons}>
               <Button
                 variant="outlined"
                 color="primary"
                 className={classes.button}
+                onClick={() => {
+                  window.location.reload();
+                }}
               >
-                View Reason
+                ReTest
               </Button>
             </div>
           </React.Fragment>

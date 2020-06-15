@@ -22,16 +22,11 @@ const GreenCheckbox = withStyles({
 export default function PersonalTraitForm(props) {
   const [interested, setInterested] = React.useState({
     Technical: false,
-    Finance: false,
-    Accounting: false,
-    ActuriaLScience: false,
-    Architecture: false,
-    Art_Humanities: false,
-    Bioscience: false,
-    Computing_IT: false,
-    Dentistry: false,
+    Business: false,
+    Art: false,
+    Computing: false,
+    Medical: false,
     HealthScience: false,
-    Engineering: false,
   });
 
   const [personality, setPersonality] = React.useState({
@@ -82,6 +77,13 @@ export default function PersonalTraitForm(props) {
           <FormControlLabel
             control={
               <GreenCheckbox
+                disabled={
+                  interested.HealthScience ||
+                  interested.Medical ||
+                  interested.Business ||
+                  interested.Art ||
+                  interested.Computing
+                }
                 checked={interested.Technical}
                 onChange={handleInterested}
                 name="Technical"
@@ -92,69 +94,52 @@ export default function PersonalTraitForm(props) {
           <FormControlLabel
             control={
               <GreenCheckbox
-                checked={interested.Finance}
+                disabled={
+                  interested.HealthScience ||
+                  interested.Medical ||
+                  interested.Technical ||
+                  interested.Art ||
+                  interested.Computing
+                }
+                checked={interested.Business}
                 onChange={handleInterested}
-                name="Finance"
+                name="Business"
               />
             }
-            label="Finance"
+            label="Business"
           />
+
           <FormControlLabel
             control={
               <GreenCheckbox
-                checked={interested.Accounting}
+                disabled={
+                  interested.HealthScience ||
+                  interested.Medical ||
+                  interested.Business ||
+                  interested.Technical ||
+                  interested.Computing
+                }
+                checked={interested.Art}
                 onChange={handleInterested}
-                name="Accounting"
-              />
-            }
-            label="Accounting"
-          />
-          <FormControlLabel
-            control={
-              <GreenCheckbox
-                checked={interested.ActuriaLScience}
-                onChange={handleInterested}
-                name="ActuriaLScience"
-              />
-            }
-            label="Acturial Science"
-          />
-          <FormControlLabel
-            control={
-              <GreenCheckbox
-                checked={interested.Architecture}
-                onChange={handleInterested}
-                name="Architecture"
-              />
-            }
-            label="Architecture"
-          />
-          <FormControlLabel
-            control={
-              <GreenCheckbox
-                checked={interested.Art_Humanities}
-                onChange={handleInterested}
-                name="Art_Humanities"
+                name="Art"
               />
             }
             label="Art & Humanities"
           />
+
           <FormControlLabel
             control={
               <GreenCheckbox
-                checked={interested.Bioscience}
+                disabled={
+                  interested.HealthScience ||
+                  interested.Medical ||
+                  interested.Business ||
+                  interested.Art ||
+                  interested.Technical
+                }
+                checked={interested.Computing}
                 onChange={handleInterested}
-                name="Bioscience"
-              />
-            }
-            label="Bioscience"
-          />
-          <FormControlLabel
-            control={
-              <GreenCheckbox
-                checked={interested.Computing_IT}
-                onChange={handleInterested}
-                name="Computing_IT"
+                name="Computing"
               />
             }
             label="Computing & IT"
@@ -162,32 +147,36 @@ export default function PersonalTraitForm(props) {
           <FormControlLabel
             control={
               <GreenCheckbox
-                checked={interested.Dentistry}
+                disabled={
+                  interested.HealthScience ||
+                  interested.Technical ||
+                  interested.Business ||
+                  interested.Art ||
+                  interested.Computing
+                }
+                checked={interested.Medical}
                 onChange={handleInterested}
-                name="Dentistry"
+                name="Medical"
               />
             }
-            label="Dentistry"
+            label="Medical"
           />
           <FormControlLabel
             control={
               <GreenCheckbox
+                disabled={
+                  interested.Technical ||
+                  interested.Medical ||
+                  interested.Business ||
+                  interested.Art ||
+                  interested.Computing
+                }
                 checked={interested.HealthScience}
                 onChange={handleInterested}
                 name="HealthScience"
               />
             }
             label="Health Science"
-          />
-          <FormControlLabel
-            control={
-              <GreenCheckbox
-                checked={interested.Engineering}
-                onChange={handleInterested}
-                name="Engineering"
-              />
-            }
-            label="Engineering"
           />
         </FormGroup>
         &nbsp;&nbsp;
@@ -200,6 +189,7 @@ export default function PersonalTraitForm(props) {
           <FormControlLabel
             control={
               <Checkbox
+                disabled={personality.Extroverts}
                 checked={personality.Introverts}
                 onChange={handlePersonality}
                 name="Introverts"
@@ -210,6 +200,7 @@ export default function PersonalTraitForm(props) {
           <FormControlLabel
             control={
               <Checkbox
+                disabled={personality.Introverts}
                 checked={personality.Extroverts}
                 onChange={handlePersonality}
                 name="Extroverts"
@@ -217,9 +208,12 @@ export default function PersonalTraitForm(props) {
             }
             label="Extroverts"
           />
+        </FormGroup>
+        <FormGroup row>
           <FormControlLabel
             control={
               <Checkbox
+                disabled={personality.Intuitives}
                 checked={personality.Sensors}
                 onChange={handlePersonality}
                 name="Sensors"
@@ -230,6 +224,7 @@ export default function PersonalTraitForm(props) {
           <FormControlLabel
             control={
               <Checkbox
+                disabled={personality.Sensors}
                 checked={personality.Intuitives}
                 onChange={handlePersonality}
                 name="Intuitives"
@@ -237,9 +232,12 @@ export default function PersonalTraitForm(props) {
             }
             label="Intuitives"
           />
+        </FormGroup>
+        <FormGroup row>
           <FormControlLabel
             control={
               <Checkbox
+                disabled={personality.Feelers}
                 checked={personality.Thinkers}
                 onChange={handlePersonality}
                 name="Thinkers"
@@ -250,6 +248,7 @@ export default function PersonalTraitForm(props) {
           <FormControlLabel
             control={
               <Checkbox
+                disabled={personality.Thinkers}
                 checked={personality.Feelers}
                 onChange={handlePersonality}
                 name="Feelers"
@@ -257,9 +256,12 @@ export default function PersonalTraitForm(props) {
             }
             label="Feelers"
           />
+        </FormGroup>
+        <FormGroup row>
           <FormControlLabel
             control={
               <Checkbox
+                disabled={personality.Perceivers}
                 checked={personality.Judgers}
                 onChange={handlePersonality}
                 name="Judgers"
@@ -270,6 +272,7 @@ export default function PersonalTraitForm(props) {
           <FormControlLabel
             control={
               <Checkbox
+                disabled={personality.Judgers}
                 checked={personality.Perceivers}
                 onChange={handlePersonality}
                 name="Perceivers"

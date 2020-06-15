@@ -84,6 +84,10 @@ export default function GenerateInfo(props) {
     personality: [],
   });
 
+  const [result, setResult] = React.useState({
+    recommendCourse: [],
+  });
+
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -94,8 +98,189 @@ export default function GenerateInfo(props) {
 
   const handleCallBack = (info) => {
     console.log("info", info);
+    //do logic
+    // console.log(generateRuleBasedResult(info));
+    let result = generateRuleBasedResult(info);
+    props.callBack2(result);
+
     setData(info);
     return JSON.stringify(info);
+  };
+
+  const generateRuleBasedResult = (info) => {
+    if (info.grade == "3.0 - 3.5" || info.grade == "3.5 and above") {
+      // condition 1
+      if (info.interested.includes("Business")) {
+        // rule 1
+        if (
+          info.personality.includes(
+            "Introverts",
+            "Sensors",
+            "Thinkers",
+            "Judgers"
+          )
+        ) {
+          // var course = "Accounting, Finance, Business Statistics";
+          // setResult(course);
+          console.log("Accounting, Finance, Business Statistics");
+          return ["Accounting", "Finance", "Business Statistics"];
+        }
+        //rule 2
+        else if (
+          info.personality.includes(
+            "Extroverts",
+            "Sensors",
+            "Thinkers",
+            "Judgers"
+          )
+        ) {
+          // var course = " Business Statistics";
+          // setResult(course);
+          console.log(
+            " Business Administration,  Marketing, Business Management  "
+          );
+          return [
+            " Business Administration",
+            "Marketing",
+            "Business Management  ",
+          ];
+        }
+      }
+      // condition 2
+      if (info.interested.includes("Technical")) {
+        if (
+          info.personality.includes(
+            "Extroverts",
+            "Sensors",
+            "Thinkers",
+            "Judgers"
+          )
+        ) {
+          console.log("Computer Science, Business Informatics, Multimedia");
+          return ["Computer Science", "Business Informatics", "Multimedia"];
+        } else if (
+          info.personality.includes(
+            "Introverts",
+            "Sensors",
+            "Thinkers",
+            "Judgers"
+          )
+        ) {
+          console.log(
+            "Electrical Engineering, Mechanical Engineering, Chemical Engineering"
+          );
+          return [
+            "Electrical Engineering",
+            "Mechanical Engineering",
+            "Chemical Engineering",
+          ];
+        }
+      }
+      // condition 3
+      if (info.interested.includes("Art")) {
+        if (
+          info.personality.includes(
+            "Extroverts",
+            "Sensors",
+            "Thinkers",
+            "Judgers"
+          )
+        ) {
+          console.log("Language and Linguistics, Psychology, Arts and Music");
+          return ["Language and Linguistics", "Psychology", "Arts and Music"];
+        } else if (
+          info.personality.includes(
+            "Introverts",
+            "Sensors",
+            "Thinkers",
+            "Judgers"
+          )
+        ) {
+          console.log("Art History, Geography, Arts Southeast Asian Studies");
+          return ["Art History", "Geography", "Arts Southeast Asian Studies"];
+        }
+      }
+      // condition 4
+      if (info.interested.includes("Computing")) {
+        if (
+          info.personality.includes(
+            "Extroverts",
+            "Sensors",
+            "Thinkers",
+            "Judgers"
+          )
+        ) {
+          console.log("Computer Science, Business Informatics, Multimedia");
+          return ["Computer Science", "Business Informatics", "Multimedia"];
+        } else if (
+          info.personality.includes(
+            "Introverts",
+            "Sensors",
+            "Thinkers",
+            "Judgers"
+          )
+        ) {
+          console.log("Networking, Software Engineering, Data Science");
+          return ["Networking", "Software Engineering", " Data Science"];
+        }
+      }
+    }
+    if (info.grade == "3.5 and above" && info.stream == "Science") {
+      // condition 1
+      if (info.interested.includes("Medical")) {
+        if (
+          info.personality.includes(
+            "Introverts",
+            "Sensors",
+            "Thinkers",
+            "Judgers"
+          )
+        ) {
+          console.log("Biomedical Sciecne, Medical Biology, Physiology");
+          return ["Biomedical Sciecne", "Medical Biology", "Physiology"];
+        } else if (
+          info.personality.includes(
+            "Extroverts",
+            "Sensors",
+            "Thinkers",
+            "Judgers"
+          )
+        ) {
+          console.log("Dentistry, Medicine, Pharmacology");
+          return ["Dentistry", "Medicine", "Pharmacology"];
+        }
+      }
+      // condition 2
+      else if (info.interested.includes("HealthScience")) {
+        if (
+          info.personality.includes(
+            "Introverts",
+            "Sensors",
+            "Thinkers",
+            "Judgers"
+          )
+        ) {
+          console.log(
+            "Science in Biotechnology, Science in Biohealth Science , Science in Bioinformatics"
+          );
+          return [
+            "Science in Biotechnology",
+            "Science in Biohealth Science",
+            "Science in Bioinformatics",
+          ];
+        } else if (
+          info.personality.includes(
+            "Extroverts",
+            "Sensors",
+            "Thinkers",
+            "Judgers"
+          )
+        ) {
+          console.log("Counselling, Early Children Education, Nursing");
+          return ["Counselling", "Early Children Education", "Nursing"];
+        }
+      }
+    }
   };
 
   const handleResult = () => {
